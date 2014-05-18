@@ -58,6 +58,8 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\axtApplicationObjectType.cs" />
+    <Compile Include="Core\axtAppObj.cs" />
     <Compile Include="Core\axtXpoViewerProject.cs" />
     <Compile Include="Core\axtMain.cs" />
     <Compile Include="Gui\axtForm_XpoFileViewer.cs">
