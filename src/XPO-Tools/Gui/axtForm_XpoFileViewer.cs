@@ -32,11 +32,13 @@ namespace AXbusiness.XpoTools
     /// <summary>
     ///     Form to view AOT.
     /// </summary>
-    public partial class axtForm_XpoFileViewer : Form
+    partial class axtForm_XpoFileViewer : Form
     {
         // ------------------------------ Member -------------------------------
         axtXpoViewerProject m_Project;
         Font m_Font;
+        bool m_DidLoad;
+        bool m_SingleXpoLoaded;
 
 
         // ------------------------------ Fields -------------------------------
@@ -49,6 +51,8 @@ namespace AXbusiness.XpoTools
 
             m_Project = new axtXpoViewerProject();
             m_Font = new Font("Courier New", 9);
+            m_DidLoad = false;
+            m_SingleXpoLoaded = false;
         }
 
 
@@ -78,6 +82,23 @@ namespace AXbusiness.XpoTools
             m_Project.populateTreeview(tvApplicationObjects);
         }
 
+        private void xpoLoaded(string _filename, string _path)
+        {
+            if (!m_DidLoad)
+            {
+                m_DidLoad = true;
+                m_SingleXpoLoaded = true;
+                lblXpoFilename.Text = _filename;
+                lblXpoFilelocation.Text = _path;
+            }
+            else if (m_SingleXpoLoaded)
+            {
+                m_SingleXpoLoaded = false;
+                lblXpoFilename.Text = string.Format("({0}) and others", lblXpoFilename.Text);
+                lblXpoFilelocation.Text = string.Format("({0}) and others", lblXpoFilelocation.Text);
+            }
+        }
+
 
         // --------------------------- Eventhandler ----------------------------
         private void cmdImportXpo_Click(object sender, EventArgs e)
@@ -91,6 +112,8 @@ namespace AXbusiness.XpoTools
                 if (frm.DialogResult == DialogResult.OK)
                 {
                     loadXpo(frm.ResultSet);
+                    System.IO.FileInfo fi = new System.IO.FileInfo(dlg.FileName);
+                    xpoLoaded(fi.Name, fi.DirectoryName);
                     showProject();
                 }
             }
