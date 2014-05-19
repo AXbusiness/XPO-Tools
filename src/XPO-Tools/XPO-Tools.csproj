@@ -58,7 +58,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="axtAot.cs" />
+    <Compile Include="Core\axtAot.cs" />
     <Compile Include="Core\axtXpoFile.cs" />
     <Compile Include="Core\axtParserXpo.cs" />
     <Compile Include="Core\axtApplicationObjectType.cs" />
