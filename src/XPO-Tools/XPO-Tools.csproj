@@ -65,6 +65,12 @@
     <Compile Include="Core\axtAppObj.cs" />
     <Compile Include="Core\axtXpoViewerProject.cs" />
     <Compile Include="Core\axtMain.cs" />
+    <Compile Include="Gui\axtForm_XpoContentSelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\axtForm_XpoContentSelection.designer.cs">
+      <DependentUpon>axtForm_XpoContentSelection.cs</DependentUpon>
+    </Compile>
     <Compile Include="Gui\axtForm_XpoFileViewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +78,9 @@
       <DependentUpon>axtForm_XpoFileViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Gui\axtForm_XpoContentSelection.resx">
+      <DependentUpon>axtForm_XpoContentSelection.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Gui\axtForm_XpoFileViewer.resx">
       <DependentUpon>axtForm_XpoFileViewer.cs</DependentUpon>
     </EmbeddedResource>

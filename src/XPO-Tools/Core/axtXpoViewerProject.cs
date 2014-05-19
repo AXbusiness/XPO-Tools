@@ -24,6 +24,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using System.Text;
 
 namespace AXbusiness.XpoTools
@@ -66,6 +67,25 @@ namespace AXbusiness.XpoTools
             }
             m_ApplicationObjects.Clear();
             m_ApplicationObjects.AddRange(xpo.ApplicationObjects);
+        }
+
+        public void populateTreeview(TreeView _tv)
+        {
+            axtAot aotSkeleton = new axtAot();
+            _tv.Nodes.Clear();
+            _tv.Nodes.Add(aotSkeleton.RootNode);
+
+            foreach (axtAppObj obj in m_ApplicationObjects)
+            {
+                TreeNode nParent = aotSkeleton.findNode(obj.ApplicationObjectType);
+                if (nParent != null)
+                {
+                    TreeNode nNew = new TreeNode(obj.MetaInformation);
+                    nNew.Tag = obj;
+                    nParent.Nodes.Add(nNew);
+                }
+            }
+            _tv.Nodes[0].Expand();
         }
 
     }
