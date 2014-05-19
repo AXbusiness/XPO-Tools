@@ -108,8 +108,9 @@ namespace AXbusiness.XpoTools
 
         private void tvApplicationObjects_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            rtfContent.Clear();
-            rtfContent.Text = e.ToString();
+            axtAppObj obj = e.Node.Tag as axtAppObj;
+            string text = obj != null ? obj.RawData : "-";
+            rtfContent.Text = text;
         }
 
     }
