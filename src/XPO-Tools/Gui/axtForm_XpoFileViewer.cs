@@ -68,28 +68,14 @@ namespace AXbusiness.XpoTools
             rtfContent.SelectionLength = prevLength;
         }
 
-        private void loadXpo(string _filename)
+        private void loadXpo(axtAppObj[] _applicationObjects)
         {
-            lblXpoFilename.Text = ".";
-            lblXpoFilelocation.Text = ".";
-            
-            try
-            {
-                System.IO.FileInfo fi = new System.IO.FileInfo(_filename);
-                //m_Project.loadXpoFile(_filename);
-                lblXpoFilename.Text = fi.Name;
-                lblXpoFilelocation.Text = fi.DirectoryName;
-            }
-            catch (ApplicationException _ex)
-            {
-                MessageBox.Show(_ex.Message, "Problem while loading");
-            }
+            m_Project.addApplicationObjectsRange(_applicationObjects);
         }
-
 
         private void showProject()
         {
-            // Display in the TreeView
+            m_Project.populateTreeview(tvApplicationObjects);
         }
 
 
@@ -100,8 +86,13 @@ namespace AXbusiness.XpoTools
             dlg.CheckFileExists = true;
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                loadXpo(dlg.FileName);
-                showProject();
+                axtForm_XpoContentSelection frm = new axtForm_XpoContentSelection(dlg.FileName);
+                frm.ShowDialog(this);
+                if (frm.DialogResult == DialogResult.OK)
+                {
+                    loadXpo(frm.ResultSet);
+                    showProject();
+                }
             }
         }
 

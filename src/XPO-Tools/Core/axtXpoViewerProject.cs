@@ -53,6 +53,11 @@ namespace AXbusiness.XpoTools
 
 
         // ------------------------------ Methods ------------------------------
+        public void addApplicationObjectsRange(axtAppObj[] _applicationObjects)
+        {
+            m_ApplicationObjects.AddRange(_applicationObjects);
+        }
+
         public void loadXpoFile(string _filename)
         {
             m_ApplicationObjects = new List<axtAppObj>();
