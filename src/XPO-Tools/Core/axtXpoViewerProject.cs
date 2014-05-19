@@ -33,6 +33,40 @@ namespace AXbusiness.XpoTools
     /// </summary>
     class axtXpoViewerProject
     {
+        // ------------------------------ Member -------------------------------
+        List<axtAppObj> m_ApplicationObjects;
+
+
+        // ------------------------------ Fields -------------------------------
+        public axtAppObj[] ApplicationObjects
+        {
+            get { return m_ApplicationObjects.ToArray(); }
+        }
+
+
+        // ---------------------------- Constructor ----------------------------
+        public axtXpoViewerProject()
+        {
+            m_ApplicationObjects = new List<axtAppObj>();
+        }
+
+
+        // ------------------------------ Methods ------------------------------
+        public void loadXpoFile(string _filename)
+        {
+            m_ApplicationObjects = new List<axtAppObj>();
+            axtXpoFile xpo = new axtXpoFile(_filename);
+            try
+            {
+                xpo.load();
+            }
+            catch (ApplicationException)
+            {
+                throw;
+            }
+            m_ApplicationObjects.Clear();
+            m_ApplicationObjects.AddRange(xpo.ApplicationObjects);
+        }
 
     }
 
