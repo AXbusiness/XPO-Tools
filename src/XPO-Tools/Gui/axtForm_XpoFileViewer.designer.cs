@@ -36,14 +36,16 @@
             this.cmdFont = new System.Windows.Forms.Button();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.tableLayout_ApplicationObjects = new System.Windows.Forms.TableLayoutPanel();
+            this.chkSelectMode = new System.Windows.Forms.CheckBox();
             this.tableLayout_Content = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayout_Main = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayout_Buttons = new System.Windows.Forms.FlowLayoutPanel();
+            this.cmdExportXpo = new System.Windows.Forms.Button();
             this.groupBox_Project = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lblXpoFilename = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.lblXpoFilelocation = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lblXpoFilename = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -70,7 +72,7 @@
             this.lblApplicationObjects.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblApplicationObjects.Location = new System.Drawing.Point(3, 0);
             this.lblApplicationObjects.Name = "lblApplicationObjects";
-            this.lblApplicationObjects.Size = new System.Drawing.Size(194, 14);
+            this.lblApplicationObjects.Size = new System.Drawing.Size(244, 14);
             this.lblApplicationObjects.TabIndex = 2;
             this.lblApplicationObjects.Text = "Application objects";
             // 
@@ -79,7 +81,7 @@
             this.tvApplicationObjects.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tvApplicationObjects.Location = new System.Drawing.Point(3, 17);
             this.tvApplicationObjects.Name = "tvApplicationObjects";
-            this.tvApplicationObjects.Size = new System.Drawing.Size(194, 458);
+            this.tvApplicationObjects.Size = new System.Drawing.Size(244, 434);
             this.tvApplicationObjects.TabIndex = 3;
             this.tvApplicationObjects.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvApplicationObjects_AfterSelect);
             // 
@@ -89,7 +91,7 @@
             this.rtfContent.Location = new System.Drawing.Point(3, 17);
             this.rtfContent.Name = "rtfContent";
             this.rtfContent.ReadOnly = true;
-            this.rtfContent.Size = new System.Drawing.Size(639, 458);
+            this.rtfContent.Size = new System.Drawing.Size(589, 458);
             this.rtfContent.TabIndex = 5;
             this.rtfContent.Text = "";
             this.rtfContent.WordWrap = false;
@@ -99,13 +101,13 @@
             this.lblContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblContent.Location = new System.Drawing.Point(3, 0);
             this.lblContent.Name = "lblContent";
-            this.lblContent.Size = new System.Drawing.Size(639, 14);
+            this.lblContent.Size = new System.Drawing.Size(589, 14);
             this.lblContent.TabIndex = 0;
             this.lblContent.Text = "Content";
             // 
             // cmdFont
             // 
-            this.cmdFont.Location = new System.Drawing.Point(3, 32);
+            this.cmdFont.Location = new System.Drawing.Point(3, 61);
             this.cmdFont.Name = "cmdFont";
             this.cmdFont.Size = new System.Drawing.Size(120, 23);
             this.cmdFont.TabIndex = 6;
@@ -128,7 +130,7 @@
             // 
             this.splitContainer.Panel2.Controls.Add(this.tableLayout_Content);
             this.splitContainer.Size = new System.Drawing.Size(848, 478);
-            this.splitContainer.SplitterDistance = 200;
+            this.splitContainer.SplitterDistance = 250;
             this.splitContainer.SplitterWidth = 3;
             this.splitContainer.TabIndex = 9;
             // 
@@ -138,14 +140,27 @@
             this.tableLayout_ApplicationObjects.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayout_ApplicationObjects.Controls.Add(this.lblApplicationObjects, 0, 0);
             this.tableLayout_ApplicationObjects.Controls.Add(this.tvApplicationObjects, 0, 1);
+            this.tableLayout_ApplicationObjects.Controls.Add(this.chkSelectMode, 0, 2);
             this.tableLayout_ApplicationObjects.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayout_ApplicationObjects.Location = new System.Drawing.Point(0, 0);
             this.tableLayout_ApplicationObjects.Name = "tableLayout_ApplicationObjects";
-            this.tableLayout_ApplicationObjects.RowCount = 2;
+            this.tableLayout_ApplicationObjects.RowCount = 3;
             this.tableLayout_ApplicationObjects.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayout_ApplicationObjects.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayout_ApplicationObjects.Size = new System.Drawing.Size(200, 478);
+            this.tableLayout_ApplicationObjects.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayout_ApplicationObjects.Size = new System.Drawing.Size(250, 478);
             this.tableLayout_ApplicationObjects.TabIndex = 10;
+            // 
+            // chkSelectMode
+            // 
+            this.chkSelectMode.AutoSize = true;
+            this.chkSelectMode.Location = new System.Drawing.Point(3, 457);
+            this.chkSelectMode.Name = "chkSelectMode";
+            this.chkSelectMode.Size = new System.Drawing.Size(95, 18);
+            this.chkSelectMode.TabIndex = 4;
+            this.chkSelectMode.Text = "Select mode";
+            this.chkSelectMode.UseVisualStyleBackColor = true;
+            this.chkSelectMode.CheckedChanged += new System.EventHandler(this.chkSelectMode_CheckedChanged);
             // 
             // tableLayout_Content
             // 
@@ -159,7 +174,7 @@
             this.tableLayout_Content.RowCount = 2;
             this.tableLayout_Content.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayout_Content.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayout_Content.Size = new System.Drawing.Size(645, 478);
+            this.tableLayout_Content.Size = new System.Drawing.Size(595, 478);
             this.tableLayout_Content.TabIndex = 10;
             // 
             // tableLayout_Main
@@ -184,12 +199,24 @@
             this.flowLayout_Buttons.AutoSize = true;
             this.flowLayout_Buttons.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayout_Buttons.Controls.Add(this.cmdImportXpo);
+            this.flowLayout_Buttons.Controls.Add(this.cmdExportXpo);
             this.flowLayout_Buttons.Controls.Add(this.cmdFont);
             this.flowLayout_Buttons.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayout_Buttons.Location = new System.Drawing.Point(857, 79);
             this.flowLayout_Buttons.Name = "flowLayout_Buttons";
-            this.flowLayout_Buttons.Size = new System.Drawing.Size(126, 58);
+            this.flowLayout_Buttons.Size = new System.Drawing.Size(126, 87);
             this.flowLayout_Buttons.TabIndex = 12;
+            // 
+            // cmdExportXpo
+            // 
+            this.cmdExportXpo.Enabled = false;
+            this.cmdExportXpo.Location = new System.Drawing.Point(3, 32);
+            this.cmdExportXpo.Name = "cmdExportXpo";
+            this.cmdExportXpo.Size = new System.Drawing.Size(120, 23);
+            this.cmdExportXpo.TabIndex = 7;
+            this.cmdExportXpo.Text = "Export XPO";
+            this.cmdExportXpo.UseVisualStyleBackColor = true;
+            this.cmdExportXpo.Click += new System.EventHandler(this.cmdExportXpo_Click);
             // 
             // groupBox_Project
             // 
@@ -206,23 +233,14 @@
             this.groupBox_Project.TabStop = false;
             this.groupBox_Project.Text = " Project ";
             // 
-            // label1
+            // lblXpoFilelocation
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(58, 14);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Filename:";
-            // 
-            // lblXpoFilename
-            // 
-            this.lblXpoFilename.AutoSize = true;
-            this.lblXpoFilename.Location = new System.Drawing.Point(80, 22);
-            this.lblXpoFilename.Name = "lblXpoFilename";
-            this.lblXpoFilename.Size = new System.Drawing.Size(11, 14);
-            this.lblXpoFilename.TabIndex = 1;
-            this.lblXpoFilename.Text = ".";
+            this.lblXpoFilelocation.AutoSize = true;
+            this.lblXpoFilelocation.Location = new System.Drawing.Point(80, 40);
+            this.lblXpoFilelocation.Name = "lblXpoFilelocation";
+            this.lblXpoFilelocation.Size = new System.Drawing.Size(11, 14);
+            this.lblXpoFilelocation.TabIndex = 3;
+            this.lblXpoFilelocation.Text = ".";
             // 
             // label3
             // 
@@ -233,14 +251,23 @@
             this.label3.TabIndex = 2;
             this.label3.Text = "Location:";
             // 
-            // lblXpoFilelocation
+            // lblXpoFilename
             // 
-            this.lblXpoFilelocation.AutoSize = true;
-            this.lblXpoFilelocation.Location = new System.Drawing.Point(80, 40);
-            this.lblXpoFilelocation.Name = "lblXpoFilelocation";
-            this.lblXpoFilelocation.Size = new System.Drawing.Size(11, 14);
-            this.lblXpoFilelocation.TabIndex = 3;
-            this.lblXpoFilelocation.Text = ".";
+            this.lblXpoFilename.AutoSize = true;
+            this.lblXpoFilename.Location = new System.Drawing.Point(80, 22);
+            this.lblXpoFilename.Name = "lblXpoFilename";
+            this.lblXpoFilename.Size = new System.Drawing.Size(11, 14);
+            this.lblXpoFilename.TabIndex = 1;
+            this.lblXpoFilename.Text = ".";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(16, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(58, 14);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Filename:";
             // 
             // axtForm_XpoFileViewer
             // 
@@ -258,6 +285,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
             this.tableLayout_ApplicationObjects.ResumeLayout(false);
+            this.tableLayout_ApplicationObjects.PerformLayout();
             this.tableLayout_Content.ResumeLayout(false);
             this.tableLayout_Main.ResumeLayout(false);
             this.tableLayout_Main.PerformLayout();
@@ -286,5 +314,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblXpoFilename;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox chkSelectMode;
+        private System.Windows.Forms.Button cmdExportXpo;
     }
 }

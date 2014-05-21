@@ -99,6 +99,27 @@ namespace AXbusiness.XpoTools
             }
         }
 
+        private void createCheckedNodes(TreeNode _node, List<axtAppObj> _collection)
+        {
+            if (_node.Checked && _node.Tag is axtAppObj)
+            {
+                _collection.Add(_node.Tag as axtAppObj);
+            }
+
+            foreach (TreeNode child in _node.Nodes)
+            {
+                createCheckedNodes(child, _collection);
+            }
+            return;
+        }
+
+        private List<axtAppObj> getCheckedNodes()
+        {
+            List<axtAppObj> obj = new List<axtAppObj>();
+            createCheckedNodes(tvApplicationObjects.TopNode, obj);
+            return obj;
+        }
+
 
         // --------------------------- Eventhandler ----------------------------
         private void cmdImportXpo_Click(object sender, EventArgs e)
@@ -119,6 +140,26 @@ namespace AXbusiness.XpoTools
             }
         }
 
+        private void cmdExportXpo_Click(object sender, EventArgs e)
+        {
+            List<axtAppObj> obj = getCheckedNodes();
+            if (obj.Count == 0)
+            {
+                MessageBox.Show("No elements selected for export", "Export XPO");
+                return;
+            }
+
+            axtXpoFile file = new axtXpoFile();
+            file.addApplicationObjects(obj.ToArray());
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.OverwritePrompt = true;
+            if (dlg.ShowDialog(this) == DialogResult.OK)
+            {
+                string filename = dlg.FileName;
+                file.saveAs(filename);
+            }
+        }
+
         private void cmdFont_Click(object sender, EventArgs e)
         {
             FontDialog dlg = new FontDialog();
@@ -134,6 +175,13 @@ namespace AXbusiness.XpoTools
             axtAppObj obj = e.Node.Tag as axtAppObj;
             string text = obj != null ? obj.RawData : "-";
             rtfContent.Text = text;
+        }
+
+        private void chkSelectMode_CheckedChanged(object sender, EventArgs e)
+        {
+            bool newState = chkSelectMode.Checked;
+            tvApplicationObjects.CheckBoxes = newState;
+            cmdExportXpo.Enabled = newState;
         }
 
     }
