@@ -92,6 +92,59 @@ namespace AXbusiness.XpoTools
             m_ApplicationObjects.AddRange(parser.ApplicationObjects);
         }
 
+        public void addApplicationObjects(axtAppObj[] _applicationObjects)
+        {
+            m_ApplicationObjects.AddRange(_applicationObjects);
+        }
+
+        public void saveAs(string _filename)
+        {
+            // Remove META information elements, if any
+            cleanupMetaData();
+
+            // Build content
+            StringBuilder s = new StringBuilder(getXpoMetaHeader());
+            foreach (axtAppObj o in m_ApplicationObjects)
+            {
+                s.AppendLine();
+                s.Append(o.MetaInformation);
+                s.Append(o.RawData);
+            }
+            s.Append(getXpoMetaFooter());
+
+            // Save file, update filename
+            File.WriteAllText(_filename, s.ToString(), Encoding.Default);
+            m_Filename = _filename;
+        }
+
+
+        // ------------------------- Internal Methods --------------------------
+        private void cleanupMetaData()
+        {
+            List<axtAppObj> obj = new List<axtAppObj>();
+            foreach (axtAppObj o in m_ApplicationObjects)
+            {
+                if (o.ApplicationObjectType != axtApplicationObjectType.MetaInformation)
+                {
+                    obj.Add(o);
+                }
+            }
+            m_ApplicationObjects = obj;
+        }
+
+        private string getXpoMetaHeader()
+        {
+            string header = "Exportfile for AOT version 1.0 or later" + Environment.NewLine +
+                "Formatversion: 1" + Environment.NewLine;
+            return header;
+        }
+
+        private string getXpoMetaFooter()
+        {
+            string footer = Environment.NewLine + "***Element: END" + Environment.NewLine;
+            return footer;
+        }
+
     }
 
 }
