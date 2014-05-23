@@ -59,7 +59,7 @@ namespace AXbusiness.XpoTools
             m_LoadSuccess = loadXpoFile(_filename);
             if (m_LoadSuccess)
             {
-                m_Project.populateTreeview(tvXpoContent);
+                m_Project.populateTreeview(tvXpoContent, true);
             }
         }
 

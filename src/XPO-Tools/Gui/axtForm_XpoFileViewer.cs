@@ -79,7 +79,7 @@ namespace AXbusiness.XpoTools
 
         private void showProject()
         {
-            m_Project.populateTreeview(tvApplicationObjects);
+            m_Project.populateTreeview(tvApplicationObjects, true);
         }
 
         private void xpoLoaded(string _filename, string _path)

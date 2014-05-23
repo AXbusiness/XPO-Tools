@@ -74,7 +74,7 @@ namespace AXbusiness.XpoTools
             m_ApplicationObjects.AddRange(xpo.ApplicationObjects);
         }
 
-        public void populateTreeview(TreeView _tv)
+        public void populateTreeview(TreeView _tv, bool _expandAll)
         {
             axtAot aotSkeleton = new axtAot();
             _tv.Nodes.Clear();
@@ -90,7 +90,15 @@ namespace AXbusiness.XpoTools
                     nParent.Nodes.Add(nNew);
                 }
             }
-            _tv.Nodes[0].Expand();
+
+            if (_expandAll)
+            {
+                _tv.ExpandAll();
+            }
+            else
+            {
+                _tv.Nodes[0].Expand();
+            }
         }
 
     }
