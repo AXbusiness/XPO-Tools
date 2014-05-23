@@ -58,6 +58,8 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\axtAppObjEval_Base.cs" />
+    <Compile Include="Core\axtAppObjEval_Default.cs" />
     <Compile Include="Core\axtParserXpp.cs" />
     <Compile Include="Core\axtAot.cs" />
     <Compile Include="Core\axtXpoFile.cs" />

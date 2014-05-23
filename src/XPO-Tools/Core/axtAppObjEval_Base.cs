@@ -24,73 +24,87 @@
 
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using System.Text;
 
 namespace AXbusiness.XpoTools
 {
     /// <summary>
-    ///     Represents a project which may contain many application objects.
+    ///     Base class for application object evaluations.
     /// </summary>
-    class axtXpoViewerProject
+    abstract class axtAppObjEval_Base
     {
         // ------------------------------ Member -------------------------------
-        List<axtAppObj> m_ApplicationObjects;
+        protected string m_Description;
+        protected string m_Text;
+        protected string m_RtfText;
+        protected bool m_RtfCreated;
+        protected axtAppObj m_ApplicationObject;
 
 
         // ------------------------------ Fields -------------------------------
-        public axtAppObj[] ApplicationObjects
+        public string Description
         {
-            get { return m_ApplicationObjects.ToArray(); }
+            get { return m_Description; }
+        }
+
+        public string Text
+        {
+            get { return m_Text; }
+        }
+
+        public string RtfText
+        {
+            get { return m_RtfText; }
         }
 
 
         // ---------------------------- Constructor ----------------------------
-        public axtXpoViewerProject()
+        protected axtAppObjEval_Base(axtAppObj _applicationObject)
         {
-            m_ApplicationObjects = new List<axtAppObj>();
+            m_Description = null;
+            m_Text = null;
+            m_RtfText = null;
+            m_RtfCreated = false;
+            m_ApplicationObject = _applicationObject;
         }
 
 
         // ------------------------------ Methods ------------------------------
-        public void addApplicationObjectsRange(axtAppObj[] _applicationObjects)
+        public virtual void generate()
         {
-            m_ApplicationObjects.AddRange(_applicationObjects);
+            m_Description = "???";
+            m_Text = "???";
+            m_RtfText = null;
         }
 
-        public void loadXpoFile(string _filename)
+        public virtual void createRtf()
         {
-            m_ApplicationObjects = new List<axtAppObj>();
-            axtXpoFile xpo = new axtXpoFile(_filename);
-            try
-            {
-                xpo.load();
-            }
-            catch (ApplicationException)
-            {
-                throw;
-            }
-            m_ApplicationObjects.Clear();
-            m_ApplicationObjects.AddRange(xpo.ApplicationObjects);
+            m_RtfText = null;
+            m_RtfCreated = true;
         }
 
-        public void populateTreeview(TreeView _tv)
-        {
-            axtAot aotSkeleton = new axtAot();
-            _tv.Nodes.Clear();
-            _tv.Nodes.Add(aotSkeleton.RootNode);
 
-            foreach (axtAppObj obj in m_ApplicationObjects)
+        // ------------------------- Internal Methods --------------------------
+        protected bool rtfCreated()
+        {
+            return m_RtfCreated;
+        }
+
+        protected void resetRtf()
+        {
+            m_RtfText = null;
+            m_RtfCreated = false;
+        }
+
+
+        // -------------------------- Static Methods ---------------------------
+        public static axtAppObjEval_Base construct(axtAppObj _applicationObject)
+        {
+            switch (_applicationObject.ApplicationObjectType)
             {
-                TreeNode nParent = aotSkeleton.findNode(obj.ApplicationObjectType);
-                if (nParent != null)
-                {
-                    TreeNode nNew = new TreeNode(obj.Evaluation.Description);
-                    nNew.Tag = obj;
-                    nParent.Nodes.Add(nNew);
-                }
+                default:
+                    return new axtAppObjEval_Default(_applicationObject);
             }
-            _tv.Nodes[0].Expand();
         }
 
     }

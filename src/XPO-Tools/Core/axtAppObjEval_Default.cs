@@ -24,73 +24,34 @@
 
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using System.Text;
 
 namespace AXbusiness.XpoTools
 {
     /// <summary>
-    ///     Represents a project which may contain many application objects.
+    ///     Evaluation for basic object types without deep-knowledge of content.
     /// </summary>
-    class axtXpoViewerProject
+    class axtAppObjEval_Default : axtAppObjEval_Base
     {
         // ------------------------------ Member -------------------------------
-        List<axtAppObj> m_ApplicationObjects;
 
 
         // ------------------------------ Fields -------------------------------
-        public axtAppObj[] ApplicationObjects
-        {
-            get { return m_ApplicationObjects.ToArray(); }
-        }
 
 
         // ---------------------------- Constructor ----------------------------
-        public axtXpoViewerProject()
+        public axtAppObjEval_Default(axtAppObj _applicationObject)
+            : base(_applicationObject)
         {
-            m_ApplicationObjects = new List<axtAppObj>();
         }
 
 
         // ------------------------------ Methods ------------------------------
-        public void addApplicationObjectsRange(axtAppObj[] _applicationObjects)
+        public override void generate()
         {
-            m_ApplicationObjects.AddRange(_applicationObjects);
-        }
-
-        public void loadXpoFile(string _filename)
-        {
-            m_ApplicationObjects = new List<axtAppObj>();
-            axtXpoFile xpo = new axtXpoFile(_filename);
-            try
-            {
-                xpo.load();
-            }
-            catch (ApplicationException)
-            {
-                throw;
-            }
-            m_ApplicationObjects.Clear();
-            m_ApplicationObjects.AddRange(xpo.ApplicationObjects);
-        }
-
-        public void populateTreeview(TreeView _tv)
-        {
-            axtAot aotSkeleton = new axtAot();
-            _tv.Nodes.Clear();
-            _tv.Nodes.Add(aotSkeleton.RootNode);
-
-            foreach (axtAppObj obj in m_ApplicationObjects)
-            {
-                TreeNode nParent = aotSkeleton.findNode(obj.ApplicationObjectType);
-                if (nParent != null)
-                {
-                    TreeNode nNew = new TreeNode(obj.Evaluation.Description);
-                    nNew.Tag = obj;
-                    nParent.Nodes.Add(nNew);
-                }
-            }
-            _tv.Nodes[0].Expand();
+            m_Description = m_ApplicationObject.MetaInformation;
+            m_Text = m_ApplicationObject.RawData;
+            resetRtf();
         }
 
     }

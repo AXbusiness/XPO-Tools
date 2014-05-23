@@ -37,6 +37,7 @@ namespace AXbusiness.XpoTools
         string m_MetaInformation;
         string m_RawData;
         axtApplicationObjectType m_ApplicationObjectType;
+        axtAppObjEval_Base m_Evaluation;
 
 
         // ------------------------------ Fields -------------------------------
@@ -58,6 +59,12 @@ namespace AXbusiness.XpoTools
             set { m_ApplicationObjectType = value; }
         }
 
+        public axtAppObjEval_Base Evaluation
+        {
+            get { return m_Evaluation; }
+            set { m_Evaluation = value; }
+        }
+
 
         // ---------------------------- Constructor ----------------------------
         public axtAppObj()
@@ -65,10 +72,19 @@ namespace AXbusiness.XpoTools
             m_MetaInformation = null;
             m_RawData = null;
             m_ApplicationObjectType = axtApplicationObjectType.Undefined;
+            m_Evaluation = null;
         }
 
 
         // ------------------------------ Methods ------------------------------
+        public void evaluate()
+        {
+            if (m_Evaluation == null)
+            {
+                m_Evaluation = axtAppObjEval_Base.construct(this);
+                m_Evaluation.generate();
+            }
+        }
 
 
         // ------------------------- Internal Methods --------------------------

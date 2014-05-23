@@ -66,6 +66,7 @@ namespace AXbusiness.XpoTools
                 {
                     if (line.ToUpper().StartsWith("***ELEMENT:"))
                     {
+                        obj.evaluate(); // [Task #0013]: Consider to evaluate application objects later in order to load faster
                         m_ApplicationObjects.Add(obj);
                         obj = getNewEntry(line);
                     }
