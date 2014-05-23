@@ -60,6 +60,9 @@
   <ItemGroup>
     <Compile Include="Core\axtAppObjEval_Base.cs" />
     <Compile Include="Core\axtAppObjEval_Default.cs" />
+    <Compile Include="Core\axtAppObjEval_Job.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Core\axtParserXpp.cs" />
     <Compile Include="Core\axtAot.cs" />
     <Compile Include="Core\axtXpoFile.cs" />

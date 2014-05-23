@@ -102,6 +102,9 @@ namespace AXbusiness.XpoTools
         {
             switch (_applicationObject.ApplicationObjectType)
             {
+                case axtApplicationObjectType.Job:
+                    return new axtAppObjEval_Job(_applicationObject);
+
                 default:
                     return new axtAppObjEval_Default(_applicationObject);
             }
