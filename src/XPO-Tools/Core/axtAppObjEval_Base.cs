@@ -105,6 +105,9 @@ namespace AXbusiness.XpoTools
                 case axtApplicationObjectType.Job:
                     return new axtAppObjEval_Job(_applicationObject);
 
+                case axtApplicationObjectType.Macro:
+                    return new axtAppObjEval_Macro(_applicationObject);
+
                 default:
                     return new axtAppObjEval_Default(_applicationObject);
             }
