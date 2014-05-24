@@ -172,9 +172,30 @@ namespace AXbusiness.XpoTools
 
         private void tvApplicationObjects_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            rtfContent.Clear();
+            if (!(e.Node.Tag is axtAppObj))
+            {
+                rtfContent.Text = "No Application Object selected.";
+                fontSelected(m_Font);
+                return;
+            }
+
             axtAppObj obj = e.Node.Tag as axtAppObj;
-            string text = obj != null ? obj.RawData : "-";
-            rtfContent.Text = text;
+
+            Cursor prevCursor = Cursor;
+            Cursor = Cursors.WaitCursor;
+            obj.Evaluation.createRtf(); // TODO: Have gui option to let user decide, since it's a long running task doing only cosmetic
+            Cursor = prevCursor;
+
+            if (obj.Evaluation.RtfText == null)
+            {
+                rtfContent.Text = obj.Evaluation.Text;
+            }
+            else
+            {
+                rtfContent.Rtf = obj.Evaluation.RtfText;
+            }
+            fontSelected(m_Font);
         }
 
         private void chkSelectMode_CheckedChanged(object sender, EventArgs e)
