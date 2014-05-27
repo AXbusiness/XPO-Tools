@@ -113,6 +113,13 @@ namespace AXbusiness.XpoTools
             return;
         }
 
+        private void importMultipleXpoFiles(string _directory)
+        {
+            // TODO: Get file list
+            // TODO: Parse each file
+            // TODO: Show in XPO content selection form
+        }
+
         private List<axtAppObj> getCheckedNodes()
         {
             List<axtAppObj> obj = new List<axtAppObj>();
@@ -138,6 +145,12 @@ namespace AXbusiness.XpoTools
                     showProject();
                 }
             }
+        }
+
+        private void cmdImportXpoMulti_Click(object sender, EventArgs e)
+        {
+            // TODO: Open folder dialog
+            importMultipleXpoFiles("filename...");
         }
 
         private void cmdExportXpo_Click(object sender, EventArgs e)
