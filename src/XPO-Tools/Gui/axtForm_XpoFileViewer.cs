@@ -115,9 +115,22 @@ namespace AXbusiness.XpoTools
 
         private void importMultipleXpoFiles(string _directory)
         {
-            // TODO: Get file list
-            // TODO: Parse each file
-            // TODO: Show in XPO content selection form
+            string[] files = System.IO.Directory.GetFiles(_directory, "*.xpo", System.IO.SearchOption.AllDirectories);
+            if (files.Length == 0)
+            {
+                MessageBox.Show(string.Format("No XPO files in folder '{0}' and subfolders.", _directory), "Import directory");
+            }
+            else
+            {
+                axtForm_XpoContentSelection frm = new axtForm_XpoContentSelection(files);
+                frm.ShowDialog(this);
+                if (frm.DialogResult == DialogResult.OK)
+                {
+                    loadXpo(frm.ResultSet);
+                    xpoLoaded("[multiple]", _directory);
+                    showProject();
+                }
+            }
         }
 
         private List<axtAppObj> getCheckedNodes()
@@ -135,7 +148,8 @@ namespace AXbusiness.XpoTools
             dlg.CheckFileExists = true;
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                axtForm_XpoContentSelection frm = new axtForm_XpoContentSelection(dlg.FileName);
+                string[] files = new string[] { dlg.FileName };
+                axtForm_XpoContentSelection frm = new axtForm_XpoContentSelection(files);
                 frm.ShowDialog(this);
                 if (frm.DialogResult == DialogResult.OK)
                 {
