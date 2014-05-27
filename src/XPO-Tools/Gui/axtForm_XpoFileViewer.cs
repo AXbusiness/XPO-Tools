@@ -149,8 +149,12 @@ namespace AXbusiness.XpoTools
 
         private void cmdImportXpoMulti_Click(object sender, EventArgs e)
         {
-            // TODO: Open folder dialog
-            importMultipleXpoFiles("filename...");
+            FolderBrowserDialog dlg = new FolderBrowserDialog();
+            dlg.Description = "Select folder to import";
+            if (dlg.ShowDialog(this) == DialogResult.OK)
+            {
+                importMultipleXpoFiles(dlg.SelectedPath);
+            }
         }
 
         private void cmdExportXpo_Click(object sender, EventArgs e)
