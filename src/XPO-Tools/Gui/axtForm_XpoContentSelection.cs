@@ -38,7 +38,7 @@ namespace AXbusiness.XpoTools
         axtXpoViewerProject m_Project;
         List<axtAppObj> m_ResultSet;
         bool m_LoadSuccess;
-        string m_LoadErrorMessage;
+        List<string> m_LoadErrorMessages;
 
 
         // ------------------------------ Fields -------------------------------
@@ -49,18 +49,26 @@ namespace AXbusiness.XpoTools
 
 
         // ---------------------------- Constructor ----------------------------
-        public axtForm_XpoContentSelection(string _filename)
+        public axtForm_XpoContentSelection(string[] _filenames)
         {
             InitializeComponent();
+            int planned = 0, success = 0;
 
             m_Project = new axtXpoViewerProject();
             m_ResultSet = new List<axtAppObj>();
-            m_LoadErrorMessage = "";
-            m_LoadSuccess = loadXpoFile(_filename);
-            if (m_LoadSuccess)
+            m_LoadErrorMessages = new List<string>();
+
+            foreach (string file in _filenames)
             {
-                m_Project.populateTreeview(tvXpoContent, true);
+                planned++;
+                success += loadXpoFile(file) ? 1 : 0;
             }
+            m_LoadSuccess = planned == success;
+            m_Project.populateTreeview(tvXpoContent, true);
+
+            cmdOK.Enabled = success > 0;
+            chkSelectAll.Enabled = success > 0;
+            txtFilename.Text = _filenames.Length == 1 ? _filenames[0] : "[multiple]";
         }
 
 
@@ -78,12 +86,8 @@ namespace AXbusiness.XpoTools
             }
             catch (ApplicationException _ex)
             {
-                m_LoadErrorMessage = _ex.Message;
+                m_LoadErrorMessages.Add(_ex.Message);
             }
-
-            cmdOK.Enabled = ok;
-            chkSelectAll.Enabled = ok;
-            txtFilename.Text = _filename;
 
             return ok;
         }
@@ -121,7 +125,23 @@ namespace AXbusiness.XpoTools
             if (!m_LoadSuccess)
             {
                 Show();
-                MessageBox.Show(m_LoadErrorMessage, "Problem while loading");
+                int i = 0;
+                string errors = "", exceed5 = "";
+
+                foreach (string msg in m_LoadErrorMessages)
+                {
+                    errors = errors + msg + Environment.NewLine;
+                    i++;
+                    if (i >= 5)
+                    {
+                        break;
+                    }
+                }
+                if (m_LoadErrorMessages.Count > 5)
+                {
+                    exceed5 = string.Format("{0}... in summary, {1} errors occured. Only first 5 are displayed.", Environment.NewLine, m_LoadErrorMessages.Count);
+                }
+                MessageBox.Show("Load errors:" + Environment.NewLine + errors + exceed5, "Problems while loading");
             }
         }
 

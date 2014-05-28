@@ -46,6 +46,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lblXpoFilename = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.cmdImportXpoMulti = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -107,7 +108,7 @@
             // 
             // cmdFont
             // 
-            this.cmdFont.Location = new System.Drawing.Point(3, 61);
+            this.cmdFont.Location = new System.Drawing.Point(3, 90);
             this.cmdFont.Name = "cmdFont";
             this.cmdFont.Size = new System.Drawing.Size(120, 23);
             this.cmdFont.TabIndex = 6;
@@ -199,18 +200,19 @@
             this.flowLayout_Buttons.AutoSize = true;
             this.flowLayout_Buttons.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayout_Buttons.Controls.Add(this.cmdImportXpo);
+            this.flowLayout_Buttons.Controls.Add(this.cmdImportXpoMulti);
             this.flowLayout_Buttons.Controls.Add(this.cmdExportXpo);
             this.flowLayout_Buttons.Controls.Add(this.cmdFont);
             this.flowLayout_Buttons.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayout_Buttons.Location = new System.Drawing.Point(857, 79);
             this.flowLayout_Buttons.Name = "flowLayout_Buttons";
-            this.flowLayout_Buttons.Size = new System.Drawing.Size(126, 87);
+            this.flowLayout_Buttons.Size = new System.Drawing.Size(126, 116);
             this.flowLayout_Buttons.TabIndex = 12;
             // 
             // cmdExportXpo
             // 
             this.cmdExportXpo.Enabled = false;
-            this.cmdExportXpo.Location = new System.Drawing.Point(3, 32);
+            this.cmdExportXpo.Location = new System.Drawing.Point(3, 61);
             this.cmdExportXpo.Name = "cmdExportXpo";
             this.cmdExportXpo.Size = new System.Drawing.Size(120, 23);
             this.cmdExportXpo.TabIndex = 7;
@@ -269,6 +271,16 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Filename:";
             // 
+            // cmdImportXpoMulti
+            // 
+            this.cmdImportXpoMulti.Location = new System.Drawing.Point(3, 32);
+            this.cmdImportXpoMulti.Name = "cmdImportXpoMulti";
+            this.cmdImportXpoMulti.Size = new System.Drawing.Size(120, 23);
+            this.cmdImportXpoMulti.TabIndex = 8;
+            this.cmdImportXpoMulti.Text = "Import multiple";
+            this.cmdImportXpoMulti.UseVisualStyleBackColor = true;
+            this.cmdImportXpoMulti.Click += new System.EventHandler(this.cmdImportXpoMulti_Click);
+            // 
             // axtForm_XpoFileViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -316,5 +328,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox chkSelectMode;
         private System.Windows.Forms.Button cmdExportXpo;
+        private System.Windows.Forms.Button cmdImportXpoMulti;
     }
 }

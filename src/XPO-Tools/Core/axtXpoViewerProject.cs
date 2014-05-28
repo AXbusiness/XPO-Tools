@@ -60,7 +60,6 @@ namespace AXbusiness.XpoTools
 
         public void loadXpoFile(string _filename)
         {
-            m_ApplicationObjects = new List<axtAppObj>();
             axtXpoFile xpo = new axtXpoFile(_filename);
             try
             {
@@ -70,7 +69,6 @@ namespace AXbusiness.XpoTools
             {
                 throw;
             }
-            m_ApplicationObjects.Clear();
             m_ApplicationObjects.AddRange(xpo.ApplicationObjects);
         }
 

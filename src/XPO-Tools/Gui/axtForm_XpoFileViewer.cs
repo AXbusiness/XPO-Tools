@@ -113,6 +113,40 @@ namespace AXbusiness.XpoTools
             return;
         }
 
+        private void importXpoFile(string _filename)
+        {
+            string[] files = new string[] { _filename };
+            axtForm_XpoContentSelection frm = new axtForm_XpoContentSelection(files);
+            frm.ShowDialog(this);
+            if (frm.DialogResult == DialogResult.OK)
+            {
+                loadXpo(frm.ResultSet);
+                System.IO.FileInfo fi = new System.IO.FileInfo(_filename);
+                xpoLoaded(fi.Name, fi.DirectoryName);
+                showProject();
+            }
+        }
+
+        private void importMultipleXpoFiles(string _directory)
+        {
+            string[] files = System.IO.Directory.GetFiles(_directory, "*.xpo", System.IO.SearchOption.AllDirectories);
+            if (files.Length == 0)
+            {
+                MessageBox.Show(string.Format("No XPO files in folder '{0}' and subfolders.", _directory), "Import directory");
+            }
+            else
+            {
+                axtForm_XpoContentSelection frm = new axtForm_XpoContentSelection(files);
+                frm.ShowDialog(this);
+                if (frm.DialogResult == DialogResult.OK)
+                {
+                    loadXpo(frm.ResultSet);
+                    xpoLoaded("[multiple]", _directory);
+                    showProject();
+                }
+            }
+        }
+
         private List<axtAppObj> getCheckedNodes()
         {
             List<axtAppObj> obj = new List<axtAppObj>();
@@ -128,15 +162,17 @@ namespace AXbusiness.XpoTools
             dlg.CheckFileExists = true;
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                axtForm_XpoContentSelection frm = new axtForm_XpoContentSelection(dlg.FileName);
-                frm.ShowDialog(this);
-                if (frm.DialogResult == DialogResult.OK)
-                {
-                    loadXpo(frm.ResultSet);
-                    System.IO.FileInfo fi = new System.IO.FileInfo(dlg.FileName);
-                    xpoLoaded(fi.Name, fi.DirectoryName);
-                    showProject();
-                }
+                importXpoFile(dlg.FileName);
+            }
+        }
+
+        private void cmdImportXpoMulti_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog dlg = new FolderBrowserDialog();
+            dlg.Description = "Select folder to import";
+            if (dlg.ShowDialog(this) == DialogResult.OK)
+            {
+                importMultipleXpoFiles(dlg.SelectedPath);
             }
         }
 
