@@ -147,6 +147,11 @@ namespace AXbusiness.XpoTools
             }
         }
 
+        private void exportMultipleXpoFiles(string _directory)
+        {
+            // TODO: Implement 'Export multiple'
+        }
+
         private List<axtAppObj> getCheckedNodes()
         {
             List<axtAppObj> obj = new List<axtAppObj>();
@@ -196,6 +201,23 @@ namespace AXbusiness.XpoTools
             }
         }
 
+        private void cmdExportXpoMulti_Click(object sender, EventArgs e)
+        {
+            List<axtAppObj> obj = getCheckedNodes();
+            if (obj.Count == 0)
+            {
+                MessageBox.Show("No elements selected for export", "Export XPO");
+                return;
+            }
+
+            FolderBrowserDialog dlg = new FolderBrowserDialog();
+            dlg.Description = "Select folder to export into";
+            if (dlg.ShowDialog(this) == DialogResult.OK)
+            {
+                exportMultipleXpoFiles(dlg.SelectedPath);
+            }
+        }
+
         private void cmdFont_Click(object sender, EventArgs e)
         {
             FontDialog dlg = new FontDialog();
@@ -239,6 +261,7 @@ namespace AXbusiness.XpoTools
             bool newState = chkSelectMode.Checked;
             tvApplicationObjects.CheckBoxes = newState;
             cmdExportXpo.Enabled = newState;
+            cmdExportXpoMulti.Enabled = newState;
         }
 
     }
