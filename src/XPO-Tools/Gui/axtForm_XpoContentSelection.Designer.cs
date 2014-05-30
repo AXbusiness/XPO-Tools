@@ -66,7 +66,7 @@
             this.tvXpoContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tvXpoContent.Location = new System.Drawing.Point(3, 31);
             this.tvXpoContent.Name = "tvXpoContent";
-            this.tvXpoContent.Size = new System.Drawing.Size(435, 298);
+            this.tvXpoContent.Size = new System.Drawing.Size(435, 411);
             this.tvXpoContent.TabIndex = 2;
             this.tvXpoContent.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.tvXpoContent_AfterCheck);
             // 
@@ -95,7 +95,7 @@
             // 
             this.chkSelectAll.AutoSize = true;
             this.tableLayout_Main.SetColumnSpan(this.chkSelectAll, 2);
-            this.chkSelectAll.Location = new System.Drawing.Point(3, 335);
+            this.chkSelectAll.Location = new System.Drawing.Point(3, 448);
             this.chkSelectAll.Name = "chkSelectAll";
             this.chkSelectAll.Size = new System.Drawing.Size(74, 18);
             this.chkSelectAll.TabIndex = 5;
@@ -144,19 +144,20 @@
             this.tableLayout_Main.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayout_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayout_Main.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayout_Main.Size = new System.Drawing.Size(528, 356);
+            this.tableLayout_Main.Size = new System.Drawing.Size(528, 469);
             this.tableLayout_Main.TabIndex = 2;
             // 
             // axtForm_XpoContentSelection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(534, 362);
+            this.ClientSize = new System.Drawing.Size(534, 475);
             this.Controls.Add(this.tableLayout_Main);
             this.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MinimumSize = new System.Drawing.Size(550, 300);
             this.Name = "axtForm_XpoContentSelection";
             this.Padding = new System.Windows.Forms.Padding(3);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "XPO Content Selection";
             this.Load += new System.EventHandler(this.frmXpoContentSelection_Load);
             this.flowLayout_Buttons.ResumeLayout(false);
