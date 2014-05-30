@@ -89,7 +89,13 @@ namespace AXbusiness.XpoTools
                 throw new ApplicationException(string.Format("Error while parsing file '{0}'", m_Filename));
             }
             m_ApplicationObjects.Clear();
-            m_ApplicationObjects.AddRange(parser.ApplicationObjects);
+            foreach (axtAppObj obj in parser.ApplicationObjects)
+            {
+                if (obj.ApplicationObjectType != axtApplicationObjectType.MetaInformation)
+                {
+                    m_ApplicationObjects.Add(obj);
+                }
+            }
         }
 
         public void addApplicationObjects(axtAppObj[] _applicationObjects)

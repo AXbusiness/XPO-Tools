@@ -73,7 +73,6 @@ namespace AXbusiness.XpoTools
             m_RootNode = new TreeNode("\\");
 
             TreeNode aotRoot = new TreeNode("AOT");
-            addTree(m_RootNode, "Meta information", axtApplicationObjectType.MetaInformation);
             addTree(m_RootNode, "Projects", axtApplicationObjectType.Project);
             m_RootNode.Nodes.Add(aotRoot);
 
