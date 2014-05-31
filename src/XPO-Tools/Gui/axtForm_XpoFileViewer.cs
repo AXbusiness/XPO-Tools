@@ -159,6 +159,30 @@ namespace AXbusiness.XpoTools
             return obj;
         }
 
+        private bool validateMultipleXpoFiles(List<axtAppObj> _obj, string _directory)
+        {
+            string baseDir = _directory + (_directory.EndsWith("\\") ? "" : "\\");
+            int cntFiles = 0, cntOverwrites = 0;
+
+            foreach (axtAppObj obj in _obj)
+            {
+                string absolutePath = baseDir + obj.Path;
+                string filename = string.Format("{0}\\{1}.xpo", absolutePath, obj.Evaluation.Description);
+                if (System.IO.File.Exists(filename))
+                {
+                    cntOverwrites++;
+                }
+                cntFiles++;
+            }
+            string text = string.Format("Files to be exported: {0}{1}Files will be overwritten: {2}{1}{1}Continue?",
+                cntFiles, Environment.NewLine, cntOverwrites);
+            if (cntOverwrites > 0 && MessageBox.Show(text, "Export multiple", MessageBoxButtons.YesNo) != DialogResult.Yes)
+            {
+                return false;
+            }
+            return true;
+        }
+
 
         // --------------------------- Eventhandler ----------------------------
         private void cmdImportXpo_Click(object sender, EventArgs e)
