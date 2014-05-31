@@ -147,9 +147,31 @@ namespace AXbusiness.XpoTools
             }
         }
 
-        private void exportMultipleXpoFiles(string _directory)
+        private void exportMultipleXpoFiles(List<axtAppObj> _obj, string _directory)
         {
-            // TODO: Implement 'Export multiple'
+            if (!validateMultipleXpoFiles(_obj, _directory))
+            {
+                return;
+            }
+
+            string baseDir = _directory + (_directory.EndsWith("\\") ? "" : "\\");
+            int cnt = 0;
+
+            foreach (axtAppObj obj in _obj)
+            {
+                string absolutePath = baseDir + obj.Path;
+                if (!System.IO.Directory.Exists(absolutePath))
+                {
+                    System.IO.Directory.CreateDirectory(absolutePath);
+                }
+
+                axtXpoFile file = new axtXpoFile();
+                file.addApplicationObjects(new axtAppObj[] { obj });
+                string filename = string.Format("{0}\\{1}.xpo", absolutePath, obj.Evaluation.Description);
+                file.saveAs(filename);
+                cnt++;
+            }
+            MessageBox.Show(string.Format("Exported files: {0}", cnt), "Export multiple");
         }
 
         private List<axtAppObj> getCheckedNodes()
@@ -238,7 +260,7 @@ namespace AXbusiness.XpoTools
             dlg.Description = "Select folder to export into";
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                exportMultipleXpoFiles(dlg.SelectedPath);
+                exportMultipleXpoFiles(obj, dlg.SelectedPath);
             }
         }
 
