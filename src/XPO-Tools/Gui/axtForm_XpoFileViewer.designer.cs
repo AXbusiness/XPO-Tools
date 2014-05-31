@@ -40,13 +40,14 @@
             this.tableLayout_Content = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayout_Main = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayout_Buttons = new System.Windows.Forms.FlowLayoutPanel();
+            this.cmdImportXpoMulti = new System.Windows.Forms.Button();
             this.cmdExportXpo = new System.Windows.Forms.Button();
             this.groupBox_Project = new System.Windows.Forms.GroupBox();
             this.lblXpoFilelocation = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lblXpoFilename = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.cmdImportXpoMulti = new System.Windows.Forms.Button();
+            this.cmdExportXpoMulti = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -108,7 +109,7 @@
             // 
             // cmdFont
             // 
-            this.cmdFont.Location = new System.Drawing.Point(3, 90);
+            this.cmdFont.Location = new System.Drawing.Point(3, 119);
             this.cmdFont.Name = "cmdFont";
             this.cmdFont.Size = new System.Drawing.Size(120, 23);
             this.cmdFont.TabIndex = 6;
@@ -202,12 +203,23 @@
             this.flowLayout_Buttons.Controls.Add(this.cmdImportXpo);
             this.flowLayout_Buttons.Controls.Add(this.cmdImportXpoMulti);
             this.flowLayout_Buttons.Controls.Add(this.cmdExportXpo);
+            this.flowLayout_Buttons.Controls.Add(this.cmdExportXpoMulti);
             this.flowLayout_Buttons.Controls.Add(this.cmdFont);
             this.flowLayout_Buttons.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayout_Buttons.Location = new System.Drawing.Point(857, 79);
             this.flowLayout_Buttons.Name = "flowLayout_Buttons";
-            this.flowLayout_Buttons.Size = new System.Drawing.Size(126, 116);
+            this.flowLayout_Buttons.Size = new System.Drawing.Size(126, 145);
             this.flowLayout_Buttons.TabIndex = 12;
+            // 
+            // cmdImportXpoMulti
+            // 
+            this.cmdImportXpoMulti.Location = new System.Drawing.Point(3, 32);
+            this.cmdImportXpoMulti.Name = "cmdImportXpoMulti";
+            this.cmdImportXpoMulti.Size = new System.Drawing.Size(120, 23);
+            this.cmdImportXpoMulti.TabIndex = 8;
+            this.cmdImportXpoMulti.Text = "Import multiple";
+            this.cmdImportXpoMulti.UseVisualStyleBackColor = true;
+            this.cmdImportXpoMulti.Click += new System.EventHandler(this.cmdImportXpoMulti_Click);
             // 
             // cmdExportXpo
             // 
@@ -271,15 +283,16 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Filename:";
             // 
-            // cmdImportXpoMulti
+            // cmdExportXpoMulti
             // 
-            this.cmdImportXpoMulti.Location = new System.Drawing.Point(3, 32);
-            this.cmdImportXpoMulti.Name = "cmdImportXpoMulti";
-            this.cmdImportXpoMulti.Size = new System.Drawing.Size(120, 23);
-            this.cmdImportXpoMulti.TabIndex = 8;
-            this.cmdImportXpoMulti.Text = "Import multiple";
-            this.cmdImportXpoMulti.UseVisualStyleBackColor = true;
-            this.cmdImportXpoMulti.Click += new System.EventHandler(this.cmdImportXpoMulti_Click);
+            this.cmdExportXpoMulti.Enabled = false;
+            this.cmdExportXpoMulti.Location = new System.Drawing.Point(3, 90);
+            this.cmdExportXpoMulti.Name = "cmdExportXpoMulti";
+            this.cmdExportXpoMulti.Size = new System.Drawing.Size(120, 23);
+            this.cmdExportXpoMulti.TabIndex = 9;
+            this.cmdExportXpoMulti.Text = "Export multiple";
+            this.cmdExportXpoMulti.UseVisualStyleBackColor = true;
+            this.cmdExportXpoMulti.Click += new System.EventHandler(this.cmdExportXpoMulti_Click);
             // 
             // axtForm_XpoFileViewer
             // 
@@ -329,5 +342,6 @@
         private System.Windows.Forms.CheckBox chkSelectMode;
         private System.Windows.Forms.Button cmdExportXpo;
         private System.Windows.Forms.Button cmdImportXpoMulti;
+        private System.Windows.Forms.Button cmdExportXpoMulti;
     }
 }

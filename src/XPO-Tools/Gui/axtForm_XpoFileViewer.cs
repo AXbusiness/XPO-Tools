@@ -147,11 +147,62 @@ namespace AXbusiness.XpoTools
             }
         }
 
+        private void exportMultipleXpoFiles(List<axtAppObj> _obj, string _directory)
+        {
+            if (!validateMultipleXpoFiles(_obj, _directory))
+            {
+                return;
+            }
+
+            string baseDir = _directory + (_directory.EndsWith("\\") ? "" : "\\");
+            int cnt = 0;
+
+            foreach (axtAppObj obj in _obj)
+            {
+                string absolutePath = baseDir + obj.Path;
+                if (!System.IO.Directory.Exists(absolutePath))
+                {
+                    System.IO.Directory.CreateDirectory(absolutePath);
+                }
+
+                axtXpoFile file = new axtXpoFile();
+                file.addApplicationObjects(new axtAppObj[] { obj });
+                string filename = string.Format("{0}\\{1}.xpo", absolutePath, obj.Evaluation.Description);
+                file.saveAs(filename);
+                cnt++;
+            }
+            MessageBox.Show(string.Format("Exported files: {0}", cnt), "Export multiple");
+        }
+
         private List<axtAppObj> getCheckedNodes()
         {
             List<axtAppObj> obj = new List<axtAppObj>();
             createCheckedNodes(tvApplicationObjects.TopNode, obj);
             return obj;
+        }
+
+        private bool validateMultipleXpoFiles(List<axtAppObj> _obj, string _directory)
+        {
+            string baseDir = _directory + (_directory.EndsWith("\\") ? "" : "\\");
+            int cntFiles = 0, cntOverwrites = 0;
+
+            foreach (axtAppObj obj in _obj)
+            {
+                string absolutePath = baseDir + obj.Path;
+                string filename = string.Format("{0}\\{1}.xpo", absolutePath, obj.Evaluation.Description);
+                if (System.IO.File.Exists(filename))
+                {
+                    cntOverwrites++;
+                }
+                cntFiles++;
+            }
+            string text = string.Format("Files to be exported: {0}{1}Files will be overwritten: {2}{1}{1}Continue?",
+                cntFiles, Environment.NewLine, cntOverwrites);
+            if (cntOverwrites > 0 && MessageBox.Show(text, "Export multiple", MessageBoxButtons.YesNo) != DialogResult.Yes)
+            {
+                return false;
+            }
+            return true;
         }
 
 
@@ -193,6 +244,23 @@ namespace AXbusiness.XpoTools
             {
                 string filename = dlg.FileName;
                 file.saveAs(filename);
+            }
+        }
+
+        private void cmdExportXpoMulti_Click(object sender, EventArgs e)
+        {
+            List<axtAppObj> obj = getCheckedNodes();
+            if (obj.Count == 0)
+            {
+                MessageBox.Show("No elements selected for export", "Export XPO");
+                return;
+            }
+
+            FolderBrowserDialog dlg = new FolderBrowserDialog();
+            dlg.Description = "Select folder to export into";
+            if (dlg.ShowDialog(this) == DialogResult.OK)
+            {
+                exportMultipleXpoFiles(obj, dlg.SelectedPath);
             }
         }
 
@@ -239,6 +307,7 @@ namespace AXbusiness.XpoTools
             bool newState = chkSelectMode.Checked;
             tvApplicationObjects.CheckBoxes = newState;
             cmdExportXpo.Enabled = newState;
+            cmdExportXpoMulti.Enabled = newState;
         }
 
     }

@@ -65,6 +65,11 @@ namespace AXbusiness.XpoTools
             set { m_Evaluation = value; }
         }
 
+        public string Path
+        {
+            get { return applicationObjectPath(ApplicationObjectType); }
+        }
+
 
         // ---------------------------- Constructor ----------------------------
         public axtAppObj()
@@ -108,6 +113,30 @@ namespace AXbusiness.XpoTools
                 default:
                     return _objectType.ToString();
             }
+        }
+
+        public static string applicationObjectPath(axtApplicationObjectType _objectType)
+        {
+            string path = "";
+
+            switch (_objectType)
+            {
+                case axtApplicationObjectType.Table:
+                case axtApplicationObjectType.BaseEnum:
+                case axtApplicationObjectType.ExtendedDataType:
+                    path = "Data Dictionary";
+                    break;
+
+                default:
+                    path = "";
+                    break;
+            }
+
+            if (path != "")
+            {
+                path += "\\";
+            }
+            return path + applicationObjectTypeToString(_objectType);
         }
 
     }
