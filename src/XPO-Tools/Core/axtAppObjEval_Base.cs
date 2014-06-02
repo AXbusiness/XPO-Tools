@@ -111,6 +111,9 @@ namespace AXbusiness.XpoTools
                 case axtApplicationObjectType.Class:
                     return new axtAppObjEval_Class(_applicationObject);
 
+                case axtApplicationObjectType.Table:
+                    return new axtAppObjEval_Table(_applicationObject);
+
                 default:
                     return new axtAppObjEval_Default(_applicationObject);
             }

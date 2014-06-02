@@ -65,6 +65,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Core\axtAppObjEval_Macro.cs" />
+    <Compile Include="Core\axtAppObjEval_Table.cs" />
     <Compile Include="Core\axtParserXpp.cs" />
     <Compile Include="Core\axtAot.cs" />
     <Compile Include="Core\axtXpoFile.cs" />
