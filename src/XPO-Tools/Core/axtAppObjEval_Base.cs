@@ -114,6 +114,9 @@ namespace AXbusiness.XpoTools
                 case axtApplicationObjectType.Table:
                     return new axtAppObjEval_Table(_applicationObject);
 
+                case axtApplicationObjectType.BaseEnum:
+                    return new axtAppObjEval_BaseEnum(_applicationObject);
+
                 default:
                     return new axtAppObjEval_Default(_applicationObject);
             }
