@@ -538,7 +538,7 @@ namespace AXbusiness.XpoTools
                 while (it.MoveNext())
                 {
                     tmpTableDeleteAction = it.Current.Value;
-                    m_Text += "   - " + tmpTableDeleteAction + ": " + tmpTableDeleteAction.DeleteAction + CR;
+                    m_Text += "   - " + tmpTableDeleteAction.Table + ": " + tmpTableDeleteAction.DeleteAction + CR;
                 }
                 m_Text += CR + CR;
             }
@@ -932,11 +932,15 @@ namespace AXbusiness.XpoTools
                 lin++;
             }
 
-            // TODO: Validate token "deleteaction" and check for default value
-            if (_rows[lin].Trim().ToLower().StartsWith("deleteaction"))
+            if (lin < _rows.Length && _rows[lin].Trim().ToLower().StartsWith("deleteaction"))
             {
                 pos = _rows[lin].IndexOf("#");
                 ret.DeleteAction = _rows[lin].Substring(pos + 1);
+            }
+            else
+            {
+                // Cases exist where this property is not explicitely contained in xpo file
+                ret.DeleteAction = "???";
             }
 
             return ret;
