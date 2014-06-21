@@ -122,6 +122,38 @@ namespace AXbusiness.XpoTools
             }
         }
 
+        public static Dictionary<string, string> parseProperties(string[] _lines, int _idxStart)
+        {
+            /*
+                  PROPERTIES
+                    Keys....            #Values....
+                  ENDPROPERTIES
+            */
+            Dictionary<string, string> ret = new Dictionary<string, string>();
+            int lin = _idxStart;
+            string s = "", tmpKey = "", tmpValue = "";
+
+            if (!_lines[lin].Trim().ToUpper().StartsWith("PROPERTIES"))
+            {
+                return ret;
+            }
+            lin++;
+            while (lin < _lines.Length && !_lines[lin].ToUpper().Trim().StartsWith("ENDPROPERTIES"))
+            {
+                s = _lines[lin].Trim();
+                tmpKey = s.Substring(0, s.IndexOf(" "));
+                tmpValue = s.Substring(s.IndexOf(" ")).Trim();
+                if (tmpValue[0] == '#')
+                {
+                    tmpValue = tmpValue.Substring(1);
+                }
+                ret.Add(tmpKey, tmpValue);
+                lin++;
+            }
+
+            return ret;
+        }
+
     }
 
 }
