@@ -62,6 +62,7 @@
     <Compile Include="Core\axtAppObjEval_BaseEnum.cs" />
     <Compile Include="Core\axtAppObjEval_Class.cs" />
     <Compile Include="Core\axtAppObjEval_Default.cs" />
+    <Compile Include="Core\axtAppObjEval_EDT.cs" />
     <Compile Include="Core\axtAppObjEval_Job.cs">
       <SubType>Code</SubType>
     </Compile>
